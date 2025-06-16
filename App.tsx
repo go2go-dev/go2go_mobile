@@ -1,22 +1,29 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
-import {WebView} from 'react-native-webview';
+import {Button, NativeModules, SafeAreaView, StyleSheet} from 'react-native';
+const {LiveActivity} = NativeModules;
 
 function App(): React.JSX.Element {
+  const onStartActivity = () => {
+    if (LiveActivity && typeof LiveActivity.startActivity === 'function') {
+      LiveActivity.startActivity();
+      console.log('Activity started');
+    } else {
+      console.log('LiveActivity not found');
+    }
+  };
+
+  const onEndActivity = () => {
+    if (LiveActivity && typeof LiveActivity.endActivity === 'function') {
+      LiveActivity.endActivity();
+    } else {
+      console.log('LiveActivity not found');
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" />
-      <WebView
-        source={{uri: 'https://go2go-front.pages.dev/'}}
-        style={styles.webview}
-      />
+      <Button title="Start Activity" onPress={onStartActivity} />
+      <Button title="Stop Activity" onPress={onEndActivity} />
     </SafeAreaView>
   );
 }
@@ -24,9 +31,8 @@ function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  webview: {
-    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
