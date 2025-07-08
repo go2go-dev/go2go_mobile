@@ -12,7 +12,7 @@ import WidgetKit
 struct TimerLiveActivityControl: ControlWidget {
     var body: some ControlWidgetConfiguration {
         StaticControlConfiguration(
-            kind: "org.reactjs.native.example.go2go-mobile.TimerLiveActivity",
+            kind: "com.go2go.munchi.TimerLiveActivity",
             provider: Provider()
         ) { value in
             ControlWidgetToggle(
