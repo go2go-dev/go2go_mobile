@@ -29,7 +29,7 @@ const AppleLoginButton: React.FC<Props> = ({onLoginSuccess}) => {
       };
 
       const tokens = await mutation.mutateAsync(payload);
-      console.error('Apple 로그인 t성공', tokens);
+      console.log('Apple 로그인 t성공', tokens);
       onLoginSuccess(tokens);
     } catch (e) {
       console.error('Apple 로그인 실패', e);

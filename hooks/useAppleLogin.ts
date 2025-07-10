@@ -12,6 +12,7 @@ const useAppleLogin = () =>
         lastName: string;
       };
     }) => {
+      console.log('Apple 로그인 API 호출 결과', loginData);
       const res = await fetch('https://munchi.site/api/auth/apple/login', {
         method: 'POST',
         headers: {
