@@ -5,10 +5,12 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Image, // 추가
 } from 'react-native';
 import WebView from 'react-native-webview';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import RNBootSplash from 'react-native-bootsplash'; // ✅ BootSplash import 추가
 import AppleLoginButton from './components/AppleLoginButton';
 
 const queryClient = new QueryClient();
@@ -31,8 +33,8 @@ function App() {
   const [tokens, setTokens] = useState<Tokens | null>(null);
   const [webViewReady, setWebViewReady] = useState(false);
   const [pendingTokens, setPendingTokens] = useState<Tokens | null>(null);
-  const [isInitializing, setIsInitializing] = useState(true); // 초기화 로딩 상태
-  const [tokensSent, setTokensSent] = useState(false); // 토큰 전송 완료 플래그
+  const [isInitializing, setIsInitializing] = useState(true);
+  const [tokensSent, setTokensSent] = useState(false);
 
   // AsyncStorage에서 토큰 불러오기
   const loadStoredTokens = async (): Promise<Tokens | null> => {
@@ -61,19 +63,11 @@ function App() {
   };
 
   // AsyncStorage에 토큰 저장
-  const saveTokensToStorage = async (
-    tokensToSave: Tokens,
-  ): Promise<boolean> => {
+  const saveTokensToStorage = async (tokensToSave: Tokens): Promise<boolean> => {
     try {
       await Promise.all([
-        AsyncStorage.setItem(
-          STORAGE_KEYS.ACCESS_TOKEN,
-          tokensToSave.accessToken,
-        ),
-        AsyncStorage.setItem(
-          STORAGE_KEYS.REFRESH_TOKEN,
-          tokensToSave.refreshToken,
-        ),
+        AsyncStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, tokensToSave.accessToken),
+        AsyncStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, tokensToSave.refreshToken),
         AsyncStorage.setItem(STORAGE_KEYS.IS_LOGGED_IN, 'true'),
       ]);
 
@@ -100,30 +94,65 @@ function App() {
     }
   };
 
-  // 앱 시작시 저장된 토큰 확인
+  // ✅ 스플래쉬 화면 숨기기 함수
+  const hideSplashScreen = () => {
+    try {
+      RNBootSplash.hide({fade: true}); // 부드러운 페이드 아웃
+      console.log('✨ 스플래쉬 화면 숨김 완료');
+    } catch (error) {
+      console.error('❌ 스플래쉬 숨김 실패:', error);
+    }
+  };
+
+  // ✅ 앱 초기화 및 스플래쉬 제어
   useEffect(() => {
     const initializeApp = async () => {
-      console.log('🚀 앱 초기화 시작');
+      try {
+        console.log('🚀 앱 초기화 시작');
 
-      const storedTokens = await loadStoredTokens();
+        // 최소 스플래쉬 표시 시간 (1.5초) - UX 향상
+        const minSplashTime = 1500;
+        const startTime = Date.now();
 
-      if (storedTokens) {
-        console.log('✅ 저장된 토큰 발견, 자동 로그인');
-        setTokens(storedTokens);
-        setIsLoggedIn(true);
+        // 저장된 토큰 확인
+        const storedTokens = await loadStoredTokens();
 
-        // 웹뷰가 준비되지 않았으면 대기
-        if (webViewReady) {
-          sendTokensToWebView(storedTokens);
+        if (storedTokens) {
+          console.log('✅ 저장된 토큰 발견, 자동 로그인');
+          setTokens(storedTokens);
+          setIsLoggedIn(true);
+
+          // 웹뷰가 준비되지 않았으면 대기
+          if (webViewReady) {
+            sendTokensToWebView(storedTokens);
+          } else {
+            setPendingTokens(storedTokens);
+          }
         } else {
-          setPendingTokens(storedTokens);
+          console.log('❌ 저장된 토큰 없음, 로그인 필요');
+          setIsLoggedIn(false);
         }
-      } else {
-        console.log('❌ 저장된 토큰 없음, 로그인 필요');
-        setIsLoggedIn(false);
-      }
 
-      setIsInitializing(false);
+        // 초기화 완료
+        setIsInitializing(false);
+
+        // 최소 스플래쉬 시간 보장
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, minSplashTime - elapsedTime);
+
+        setTimeout(() => {
+          hideSplashScreen();
+        }, remainingTime);
+
+      } catch (error) {
+        console.error('❌ 앱 초기화 실패:', error);
+        setIsInitializing(false);
+        
+        // 에러가 있어도 스플래쉬는 숨김 (2초 후)
+        setTimeout(() => {
+          hideSplashScreen();
+        }, 2000);
+      }
     };
 
     initializeApp();
@@ -205,16 +234,6 @@ function App() {
               }));
               console.log('[RN→Web] 이벤트 발생 완료');
               
-              // 성공 표시
-              if (document.body) {
-                document.body.style.border = '3px solid green';
-                setTimeout(() => {
-                  if (document.body) {
-                    document.body.style.border = '';
-                  }
-                }, 2000);
-              }
-              
               // React Native에 성공 신호 전송
               if (window.ReactNativeWebView) {
                 window.ReactNativeWebView.postMessage('TOKEN_SAVED_SUCCESS');
@@ -256,7 +275,7 @@ function App() {
   const resendTokens = () => {
     if (tokens) {
       console.log('🔁 토큰 재전송');
-      setTokensSent(false); // 재전송을 위해 플래그 리셋
+      setTokensSent(false);
       sendTokensToWebView(tokens);
     } else {
       console.log('❌ 재전송할 토큰이 없음');
@@ -273,7 +292,7 @@ function App() {
     setTokens(null);
     setWebViewReady(false);
     setPendingTokens(null);
-    setTokensSent(false); // 토큰 전송 플래그 리셋
+    setTokensSent(false);
   };
 
   // 웹뷰 준비 완료 처리
@@ -288,17 +307,9 @@ function App() {
     }
   };
 
-  // 초기화 중일 때 로딩 화면
+  // ✅ 스플래쉬가 표시되는 동안은 빈 화면 반환 (네이티브 스플래쉬가 덮고 있음)
   if (isInitializing) {
-    return (
-      <QueryClientProvider client={queryClient}>
-        <SafeAreaView style={styles.container}>
-          <View style={styles.loadingScreen}>
-            <Text style={styles.loadingText}>앱을 시작하는 중...</Text>
-          </View>
-        </SafeAreaView>
-      </QueryClientProvider>
-    );
+    return null; // 네이티브 스플래쉬 화면이 표시되므로 빈 화면
   }
 
   // 로그인되지 않은 상태
@@ -307,8 +318,15 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <SafeAreaView style={styles.container}>
           <View style={styles.loginScreen}>
-            <Text style={styles.title}>로그인이 필요합니다</Text>
-            <AppleLoginButton onLoginSuccess={handleTokens} />
+            {/* 로고 이미지 추가 */}
+            <Image
+              source={require('./assets/logo.png')}
+              style={{ width: 200, height: 220, marginBottom: 32 }}
+              resizeMode="contain"
+            />
+            <View style={styles.loginButtonContainer}>
+              <AppleLoginButton onLoginSuccess={handleTokens} />
+            </View>
           </View>
         </SafeAreaView>
       </QueryClientProvider>
@@ -329,20 +347,15 @@ function App() {
                 토큰: {tokens ? '✅ 있음' : '❌ 없음'}
               </Text>
               <Text style={styles.statusText}>
-                전송:{' '}
-                {tokensSent ? '✅ 완료' : pendingTokens ? '⏳ 대기' : '❌ 없음'}
+                전송: {tokensSent ? '✅ 완료' : pendingTokens ? '⏳ 대기' : '❌ 없음'}
               </Text>
             </View>
 
             <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={styles.debugButton}
-                onPress={resendTokens}>
+              <TouchableOpacity style={styles.debugButton} onPress={resendTokens}>
                 <Text style={styles.debugText}>토큰 재전송</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.logoutButton}
-                onPress={handleLogout}>
+              <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
                 <Text style={styles.logoutText}>로그아웃</Text>
               </TouchableOpacity>
             </View>
@@ -357,7 +370,6 @@ function App() {
             mixedContentMode="compatibility"
             allowsInlineMediaPlayback
             mediaPlaybackRequiresUserAction={false}
-            // 새로고침 방지 설정
             pullToRefreshEnabled={false}
             bounces={false}
             showsVerticalScrollIndicator={false}
@@ -390,17 +402,10 @@ function App() {
                   setTokensSent(false);
                   break;
                 default:
-                  // JSON 메시지 파싱 시도
                   try {
                     const parsed = JSON.parse(message);
                     if (parsed.type === 'ROUTER_ERROR') {
-                      console.log(
-                        '🚨 웹뷰 라우터 에러:',
-                        parsed.error,
-                        'Path:',
-                        parsed.path,
-                      );
-                      // 라우터 에러 발생시 토큰 재전송 시도 (한 번만)
+                      console.log('🚨 웹뷰 라우터 에러:', parsed.error, 'Path:', parsed.path);
                       if (tokens && !tokensSent) {
                         console.log('🔄 라우터 에러로 인한 토큰 재전송');
                         setTimeout(() => {
@@ -415,18 +420,16 @@ function App() {
             }}
             onLoadStart={() => {
               console.log('🔄 WebView 로드 시작');
-              setWebViewReady(false); // 로드 시작시 준비 상태 리셋
-              setTokensSent(false); // 토큰 전송 플래그 리셋
+              setWebViewReady(false);
+              setTokensSent(false);
             }}
             onLoadEnd={() => {
               console.log('✅ WebView 로드 완료, 준비 상태 확인 시작');
 
-              // 웹뷰에 준비 상태 확인 요청
               const checkReadyCode = `
                 (function() {
                   try {
                     const checkReactReady = () => {
-                      // React 앱과 이벤트 리스너가 모두 준비되었는지 확인
                       if (document.readyState === 'complete' && 
                           (document.querySelector('#root') || document.querySelector('[data-reactroot]')) &&
                           window.receiveTokensFromRN) {
@@ -439,12 +442,10 @@ function App() {
                       return false;
                     };
                     
-                    // 즉시 체크
                     if (checkReactReady()) {
                       return 'READY_IMMEDIATELY';
                     }
                     
-                    // 여러 번 재시도
                     let attempts = 0;
                     const maxAttempts = 10;
                     const interval = setInterval(() => {
@@ -482,29 +483,40 @@ function App() {
 
 const styles = StyleSheet.create({
   container: {flex: 1},
-  loadingScreen: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f8f9fa',
-  },
-  loadingText: {
-    fontSize: 18,
-    color: '#666',
-    fontWeight: '500',
-  },
+  // 로그인 화면 스타일 (향상됨)
   loginScreen: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#f8f9fa',
+    paddingHorizontal: 40,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 30,
-    color: '#333',
+    color: '#1a1a1a',
+    marginBottom: 16,
+    textAlign: 'center',
   },
+  subtitle: {
+    fontSize: 18,
+    color: '#4a5568',
+    textAlign: 'center',
+    lineHeight: 26,
+    marginBottom: 12,
+  },
+  description: {
+    fontSize: 14,
+    color: '#718096',
+    textAlign: 'center',
+    marginBottom: 40,
+  },
+  loginButtonContainer: {
+    marginTop: 16,
+    width: '100%',
+    alignItems: 'center',
+  },
+  // 웹뷰 화면 스타일
   webviewContainer: {flex: 1},
   debugContainer: {
     padding: 10,
@@ -547,4 +559,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default App

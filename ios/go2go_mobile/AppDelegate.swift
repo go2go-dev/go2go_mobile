@@ -2,6 +2,7 @@ import UIKit
 import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
+import RNBootSplash  // ✅ bootsplash import 추가
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,7 +30,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       launchOptions: launchOptions
     )
 
+    // ✅ bootsplash 초기화 (React Native 로딩 완료 후)
+    if let window = window {
+      RNBootSplash.initWithStoryboard("BootSplash", rootView: window.rootViewController?.view)
+    }
+
     return true
+  }
+  
+  // ✅ 앱이 활성화될 때 bootsplash 처리
+  func applicationDidBecomeActive(_ application: UIApplication) {
+    // React Native에서 RNBootSplash.hide()를 호출할 때까지 스플래쉬 유지
   }
 }
 
