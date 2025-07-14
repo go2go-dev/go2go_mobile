@@ -338,28 +338,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <SafeAreaView style={styles.container}>
         <View style={styles.webviewContainer}>
-          <View style={styles.debugContainer}>
-            <View style={styles.statusContainer}>
-              <Text style={styles.statusText}>
-                웹뷰: {webViewReady ? '✅ 준비됨' : '⏳ 로딩중'}
-              </Text>
-              <Text style={styles.statusText}>
-                토큰: {tokens ? '✅ 있음' : '❌ 없음'}
-              </Text>
-              <Text style={styles.statusText}>
-                전송: {tokensSent ? '✅ 완료' : pendingTokens ? '⏳ 대기' : '❌ 없음'}
-              </Text>
-            </View>
-
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.debugButton} onPress={resendTokens}>
-                <Text style={styles.debugText}>토큰 재전송</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-                <Text style={styles.logoutText}>로그아웃</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+         
 
           <WebView
             ref={webviewRef}
@@ -400,6 +379,11 @@ function App() {
                 case 'TOKENS_CLEARED':
                   console.log('🗑️ 웹에서 토큰 삭제됨');
                   setTokensSent(false);
+                  break;
+                   // ✅ 로그아웃 처리 추가
+                case 'LOGOUT_REQUEST':
+                  console.log('👋 웹에서 로그아웃 요청 수신');
+                  handleLogout();
                   break;
                 default:
                   try {
