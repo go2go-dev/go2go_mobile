@@ -3,15 +3,13 @@ import {
   SafeAreaView,
   StyleSheet,
   View,
-  Text,
-  TouchableOpacity,
   Image, // 추가
 } from 'react-native';
 import WebView from 'react-native-webview';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import RNBootSplash from 'react-native-bootsplash'; // ✅ BootSplash import 추가
-import AppleLoginButton from './components/AppleLoginButton';
+// import AppleLoginButton from './components/AppleLoginButton';
 import TempLoginButton from './components/TempLoginButton';
 
 const queryClient = new QueryClient();
