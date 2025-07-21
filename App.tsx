@@ -12,6 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import RNBootSplash from 'react-native-bootsplash'; // ✅ BootSplash import 추가
 import AppleLoginButton from './components/AppleLoginButton';
+import TempLoginButton from './components/TempLoginButton';
 
 const queryClient = new QueryClient();
 
@@ -325,7 +326,7 @@ function App() {
               resizeMode="contain"
             />
             <View style={styles.loginButtonContainer}>
-              <AppleLoginButton onLoginSuccess={handleTokens} />
+              <TempLoginButton onLoginSuccess={handleTokens} />
             </View>
           </View>
         </SafeAreaView>
@@ -384,6 +385,9 @@ function App() {
                 case 'LOGOUT_REQUEST':
                   console.log('👋 웹에서 로그아웃 요청 수신');
                   handleLogout();
+                case 'ACCOUNT_DELETED':
+                  console.log('🗑️ 웹에서 회원탈퇴 완료');
+                  handleLogout(); // 기존 회원탈퇴 함수 호출
                   break;
                 default:
                   try {
@@ -467,13 +471,14 @@ function App() {
 
 const styles = StyleSheet.create({
   container: {flex: 1},
-  // 로그인 화면 스타일 (향상됨)
+  // 로그인 화면 스타일 (상단 정렬로 수정)
   loginScreen: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start', // center에서 flex-start로 변경
     alignItems: 'center',
     backgroundColor: '#f8f9fa',
     paddingHorizontal: 40,
+    paddingTop: 10, // 상단 여백 추가 (상태바 + 여유공간)
   },
   title: {
     fontSize: 28,
@@ -496,9 +501,9 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   loginButtonContainer: {
-    marginTop: 16,
     width: '100%',
     alignItems: 'center',
+    paddingHorizontal: 0, // 좌우 패딩 추가
   },
   // 웹뷰 화면 스타일
   webviewContainer: {flex: 1},
@@ -521,7 +526,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   debugButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#F8EF89',
     padding: 8,
     borderRadius: 5,
   },
