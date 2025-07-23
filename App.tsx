@@ -1,16 +1,10 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Image, // 추가
-} from 'react-native';
+import {SafeAreaView, StyleSheet, View, Image} from 'react-native';
 import WebView from 'react-native-webview';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import RNBootSplash from 'react-native-bootsplash'; // ✅ BootSplash import 추가
-// import AppleLoginButton from './components/AppleLoginButton';
-import TempLoginButton from './components/TempLoginButton';
+import AppleLoginButton from './components/AppleLoginButton';
 
 const queryClient = new QueryClient();
 
@@ -62,11 +56,19 @@ function App() {
   };
 
   // AsyncStorage에 토큰 저장
-  const saveTokensToStorage = async (tokensToSave: Tokens): Promise<boolean> => {
+  const saveTokensToStorage = async (
+    tokensToSave: Tokens,
+  ): Promise<boolean> => {
     try {
       await Promise.all([
-        AsyncStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, tokensToSave.accessToken),
-        AsyncStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, tokensToSave.refreshToken),
+        AsyncStorage.setItem(
+          STORAGE_KEYS.ACCESS_TOKEN,
+          tokensToSave.accessToken,
+        ),
+        AsyncStorage.setItem(
+          STORAGE_KEYS.REFRESH_TOKEN,
+          tokensToSave.refreshToken,
+        ),
         AsyncStorage.setItem(STORAGE_KEYS.IS_LOGGED_IN, 'true'),
       ]);
 
@@ -142,11 +144,10 @@ function App() {
         setTimeout(() => {
           hideSplashScreen();
         }, remainingTime);
-
       } catch (error) {
         console.error('❌ 앱 초기화 실패:', error);
         setIsInitializing(false);
-        
+
         // 에러가 있어도 스플래쉬는 숨김 (2초 후)
         setTimeout(() => {
           hideSplashScreen();
@@ -320,11 +321,11 @@ function App() {
             {/* 로고 이미지 추가 */}
             <Image
               source={require('./assets/logo.png')}
-              style={{ width: 200, height: 220, marginBottom: 32 }}
+              style={{width: 200, height: 220, marginBottom: 32}}
               resizeMode="contain"
             />
             <View style={styles.loginButtonContainer}>
-              <TempLoginButton onLoginSuccess={handleTokens} />
+              <AppleLoginButton onLoginSuccess={handleTokens} />
             </View>
           </View>
         </SafeAreaView>
@@ -337,8 +338,6 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <SafeAreaView style={styles.container}>
         <View style={styles.webviewContainer}>
-         
-
           <WebView
             ref={webviewRef}
             originWhitelist={['*']}
@@ -379,19 +378,21 @@ function App() {
                   console.log('🗑️ 웹에서 토큰 삭제됨');
                   setTokensSent(false);
                   break;
-                   // ✅ 로그아웃 처리 추가
+                // ✅ 로그아웃 처리 추가
                 case 'LOGOUT_REQUEST':
                   console.log('👋 웹에서 로그아웃 요청 수신');
                   handleLogout();
-                case 'ACCOUNT_DELETED':
-                  console.log('🗑️ 웹에서 회원탈퇴 완료');
-                  handleLogout(); // 기존 회원탈퇴 함수 호출
                   break;
                 default:
                   try {
                     const parsed = JSON.parse(message);
                     if (parsed.type === 'ROUTER_ERROR') {
-                      console.log('🚨 웹뷰 라우터 에러:', parsed.error, 'Path:', parsed.path);
+                      console.log(
+                        '🚨 웹뷰 라우터 에러:',
+                        parsed.error,
+                        'Path:',
+                        parsed.path,
+                      );
                       if (tokens && !tokensSent) {
                         console.log('🔄 라우터 에러로 인한 토큰 재전송');
                         setTimeout(() => {
@@ -469,14 +470,13 @@ function App() {
 
 const styles = StyleSheet.create({
   container: {flex: 1},
-  // 로그인 화면 스타일 (상단 정렬로 수정)
+  // 로그인 화면 스타일 (향상됨)
   loginScreen: {
     flex: 1,
-    justifyContent: 'flex-start', // center에서 flex-start로 변경
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f8f9fa',
     paddingHorizontal: 40,
-    paddingTop: 10, // 상단 여백 추가 (상태바 + 여유공간)
   },
   title: {
     fontSize: 28,
@@ -499,9 +499,9 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   loginButtonContainer: {
+    marginTop: 16,
     width: '100%',
     alignItems: 'center',
-    paddingHorizontal: 0, // 좌우 패딩 추가
   },
   // 웹뷰 화면 스타일
   webviewContainer: {flex: 1},
@@ -524,7 +524,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   debugButton: {
-    backgroundColor: '#F8EF89',
+    backgroundColor: '#007AFF',
     padding: 8,
     borderRadius: 5,
   },
@@ -546,4 +546,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App
+export default App;
