@@ -3,32 +3,32 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		333F9D0CDCEF49E0810BD593 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7929AD9623F84380BF194BF9 /* Colors.xcassets */; };
-		4096FB3F2E007727008A8A68 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4096FB3E2E007727008A8A68 /* WidgetKit.framework */; };
-		4096FB412E007727008A8A68 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4096FB402E007727008A8A68 /* SwiftUI.framework */; };
-		4096FB502E007728008A8A68 /* TimerLiveActivityExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4096FB3D2E007727008A8A68 /* TimerLiveActivityExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4096FB5B2E007878008A8A68 /* LiveActivityModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096FB5A2E007878008A8A68 /* LiveActivityModule.swift */; };
-		4096FB5C2E007879008A8A68 /* LiveActivityModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096FB5A2E007878008A8A68 /* LiveActivityModule.swift */; };
-		4096FB612E007920008A8A68 /* LiveActivityModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 4096FB5F2E007920008A8A68 /* LiveActivityModule.m */; };
+		403612782E39D77400B46E07 /* WidgetBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403612772E39D77400B46E07 /* WidgetBridge.swift */; };
+		40703AB42E39B281005BF0EA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4096FB3E2E007727008A8A68 /* WidgetKit.framework */; };
+		40703AB52E39B281005BF0EA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4096FB402E007727008A8A68 /* SwiftUI.framework */; };
+		40703AC42E39B282005BF0EA /* TodoWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 40703AB32E39B280005BF0EA /* TodoWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		40D3D7572E39C2760061A9BA /* SharedDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D3D7552E39C2760061A9BA /* SharedDefaults.m */; };
+		40D3D7582E39CA6B0061A9BA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4096FB3E2E007727008A8A68 /* WidgetKit.framework */; };
+		6228CE034BB00973B035B15D /* libPods-go2go_mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1155102DA0B958B7DC775A7C /* libPods-go2go_mobile.a */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		C085AFE4D36BB7D05AEE1316 /* libPods-go2go_mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7177CE8FC728322510FC87A1 /* libPods-go2go_mobile.a */; };
 		D1C1ABF4CB894FFDB8E33144 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09E11521495948418F4F71EE /* BootSplash.storyboard */; };
 		EE3D254A4FAE4C55D551119A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4096FB4E2E007728008A8A68 /* PBXContainerItemProxy */ = {
+		40703AC22E39B282005BF0EA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 4096FB3C2E007727008A8A68;
-			remoteInfo = TimerLiveActivityExtension;
+			remoteGlobalIDString = 40703AB22E39B280005BF0EA;
+			remoteInfo = TodoWidgetExtension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -39,7 +39,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				4096FB502E007728008A8A68 /* TimerLiveActivityExtension.appex in Embed Foundation Extensions */,
+				40703AC42E39B282005BF0EA /* TodoWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,58 +48,39 @@
 
 /* Begin PBXFileReference section */
 		09E11521495948418F4F71EE /* BootSplash.storyboard */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = BootSplash.storyboard; path = go2go_mobile/BootSplash.storyboard; sourceTree = "<group>"; };
+		1155102DA0B958B7DC775A7C /* libPods-go2go_mobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-go2go_mobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* go2go_mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = go2go_mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = go2go_mobile/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = go2go_mobile/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = go2go_mobile/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		1DD24709B85A3B57790AD476 /* Pods-go2go_mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-go2go_mobile.debug.xcconfig"; path = "Target Support Files/Pods-go2go_mobile/Pods-go2go_mobile.debug.xcconfig"; sourceTree = "<group>"; };
+		403612772E39D77400B46E07 /* WidgetBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetBridge.swift; sourceTree = "<group>"; };
+		40703AB32E39B280005BF0EA /* TodoWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TodoWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		407FB4FC2E1D473300A076A6 /* go2go_mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = go2go_mobile.entitlements; path = go2go_mobile/go2go_mobile.entitlements; sourceTree = "<group>"; };
-		4096FB3D2E007727008A8A68 /* TimerLiveActivityExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TimerLiveActivityExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4096FB3E2E007727008A8A68 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		4096FB402E007727008A8A68 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		4096FB5A2E007878008A8A68 /* LiveActivityModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityModule.swift; sourceTree = "<group>"; };
-		4096FB5D2E007920008A8A68 /* go2go_mobile-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "go2go_mobile-Bridging-Header.h"; sourceTree = "<group>"; };
-		4096FB5E2E007920008A8A68 /* TimerLiveActivityExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TimerLiveActivityExtension-Bridging-Header.h"; sourceTree = "<group>"; };
-		4096FB5F2E007920008A8A68 /* LiveActivityModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveActivityModule.m; sourceTree = "<group>"; };
-		7177CE8FC728322510FC87A1 /* libPods-go2go_mobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-go2go_mobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		40D3D7532E39C1450061A9BA /* TodoWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TodoWidgetExtension.entitlements; sourceTree = "<group>"; };
+		40D3D7542E39C24E0061A9BA /* SharedDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedDefaults.h; sourceTree = "<group>"; };
+		40D3D7552E39C2760061A9BA /* SharedDefaults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SharedDefaults.m; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = go2go_mobile/AppDelegate.swift; sourceTree = "<group>"; };
 		7929AD9623F84380BF194BF9 /* Colors.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = go2go_mobile/Colors.xcassets; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = go2go_mobile/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CAEE8D8DD4DC50961DD645B6 /* Pods-go2go_mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-go2go_mobile.release.xcconfig"; path = "Target Support Files/Pods-go2go_mobile/Pods-go2go_mobile.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F3BB0F3CA6D30149E5EC13EB /* Pods-go2go_mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-go2go_mobile.release.xcconfig"; path = "Target Support Files/Pods-go2go_mobile/Pods-go2go_mobile.release.xcconfig"; sourceTree = "<group>"; };
+		FFD3C3B89988AE1966B5F717 /* Pods-go2go_mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-go2go_mobile.debug.xcconfig"; path = "Target Support Files/Pods-go2go_mobile/Pods-go2go_mobile.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		4096FB512E007728008A8A68 /* Exceptions for "TimerLiveActivity" folder in "TimerLiveActivityExtension" target */ = {
+		40703AC82E39B282005BF0EA /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 4096FB3C2E007727008A8A68 /* TimerLiveActivityExtension */;
-		};
-		4096FB592E0077AC008A8A68 /* Exceptions for "TimerLiveActivity" folder in "go2go_mobile" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				TimerLiveActivityAttributes.swift,
-			);
-			target = 13B07F861A680F5B00A75B9A /* go2go_mobile */;
+			target = 40703AB22E39B280005BF0EA /* TodoWidgetExtension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		4096FB422E007727008A8A68 /* TimerLiveActivity */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				4096FB592E0077AC008A8A68 /* Exceptions for "TimerLiveActivity" folder in "go2go_mobile" target */,
-				4096FB512E007728008A8A68 /* Exceptions for "TimerLiveActivity" folder in "TimerLiveActivityExtension" target */,
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = TimerLiveActivity;
-			sourceTree = "<group>";
-		};
+		40703AB62E39B281005BF0EA /* TodoWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (40703AC82E39B282005BF0EA /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = TodoWidget; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,16 +88,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C085AFE4D36BB7D05AEE1316 /* libPods-go2go_mobile.a in Frameworks */,
+				40D3D7582E39CA6B0061A9BA /* WidgetKit.framework in Frameworks */,
+				6228CE034BB00973B035B15D /* libPods-go2go_mobile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4096FB3A2E007727008A8A68 /* Frameworks */ = {
+		40703AB02E39B280005BF0EA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4096FB412E007727008A8A68 /* SwiftUI.framework in Frameworks */,
-				4096FB3F2E007727008A8A68 /* WidgetKit.framework in Frameworks */,
+				40703AB52E39B281005BF0EA /* SwiftUI.framework in Frameworks */,
+				40703AB42E39B281005BF0EA /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +126,7 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				4096FB3E2E007727008A8A68 /* WidgetKit.framework */,
 				4096FB402E007727008A8A68 /* SwiftUI.framework */,
-				7177CE8FC728322510FC87A1 /* libPods-go2go_mobile.a */,
+				1155102DA0B958B7DC775A7C /* libPods-go2go_mobile.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -159,16 +141,16 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				4096FB5A2E007878008A8A68 /* LiveActivityModule.swift */,
-				4096FB5F2E007920008A8A68 /* LiveActivityModule.m */,
+				40D3D7542E39C24E0061A9BA /* SharedDefaults.h */,
+				40D3D7552E39C2760061A9BA /* SharedDefaults.m */,
+				403612772E39D77400B46E07 /* WidgetBridge.swift */,
+				40D3D7532E39C1450061A9BA /* TodoWidgetExtension.entitlements */,
 				13B07FAE1A68108700A75B9A /* go2go_mobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				4096FB422E007727008A8A68 /* TimerLiveActivity */,
+				40703AB62E39B281005BF0EA /* TodoWidget */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
-				4096FB5D2E007920008A8A68 /* go2go_mobile-Bridging-Header.h */,
-				4096FB5E2E007920008A8A68 /* TimerLiveActivityExtension-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -179,7 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* go2go_mobile.app */,
-				4096FB3D2E007727008A8A68 /* TimerLiveActivityExtension.appex */,
+				40703AB32E39B280005BF0EA /* TodoWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -187,8 +169,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1DD24709B85A3B57790AD476 /* Pods-go2go_mobile.debug.xcconfig */,
-				F3BB0F3CA6D30149E5EC13EB /* Pods-go2go_mobile.release.xcconfig */,
+				FFD3C3B89988AE1966B5F717 /* Pods-go2go_mobile.debug.xcconfig */,
+				CAEE8D8DD4DC50961DD645B6 /* Pods-go2go_mobile.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -200,43 +182,43 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "go2go_mobile" */;
 			buildPhases = (
-				FC97D03D2CEA961E83C39263 /* [CP] Check Pods Manifest.lock */,
+				7FF85B9524E5CCF943E7D1F5 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				4096FB552E007728008A8A68 /* Embed Foundation Extensions */,
-				88D9B609BD8817F69BAD97E6 /* [CP] Embed Pods Frameworks */,
-				D0B58DDEE933E64FE6D89AAA /* [CP] Copy Pods Resources */,
+				FB856020BF112C87A096865E /* [CP] Embed Pods Frameworks */,
+				EFE50FF3B08E8C0F8EC97119 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4096FB4F2E007728008A8A68 /* PBXTargetDependency */,
+				40703AC32E39B282005BF0EA /* PBXTargetDependency */,
 			);
 			name = go2go_mobile;
 			productName = go2go_mobile;
 			productReference = 13B07F961A680F5B00A75B9A /* go2go_mobile.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4096FB3C2E007727008A8A68 /* TimerLiveActivityExtension */ = {
+		40703AB22E39B280005BF0EA /* TodoWidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4096FB522E007728008A8A68 /* Build configuration list for PBXNativeTarget "TimerLiveActivityExtension" */;
+			buildConfigurationList = 40703AC72E39B282005BF0EA /* Build configuration list for PBXNativeTarget "TodoWidgetExtension" */;
 			buildPhases = (
-				4096FB392E007727008A8A68 /* Sources */,
-				4096FB3A2E007727008A8A68 /* Frameworks */,
-				4096FB3B2E007727008A8A68 /* Resources */,
+				40703AAF2E39B280005BF0EA /* Sources */,
+				40703AB02E39B280005BF0EA /* Frameworks */,
+				40703AB12E39B280005BF0EA /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				4096FB422E007727008A8A68 /* TimerLiveActivity */,
+				40703AB62E39B281005BF0EA /* TodoWidget */,
 			);
-			name = TimerLiveActivityExtension;
-			productName = TimerLiveActivityExtension;
-			productReference = 4096FB3D2E007727008A8A68 /* TimerLiveActivityExtension.appex */;
+			name = TodoWidgetExtension;
+			productName = TodoWidgetExtension;
+			productReference = 40703AB32E39B280005BF0EA /* TodoWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -251,9 +233,8 @@
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1640;
 					};
-					4096FB3C2E007727008A8A68 = {
+					40703AB22E39B280005BF0EA = {
 						CreatedOnToolsVersion = 16.4;
-						LastSwiftMigration = 1640;
 					};
 				};
 			};
@@ -271,7 +252,7 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* go2go_mobile */,
-				4096FB3C2E007727008A8A68 /* TimerLiveActivityExtension */,
+				40703AB22E39B280005BF0EA /* TodoWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -289,7 +270,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4096FB3B2E007727008A8A68 /* Resources */ = {
+		40703AB12E39B280005BF0EA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -315,41 +296,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		88D9B609BD8817F69BAD97E6 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-go2go_mobile/Pods-go2go_mobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-go2go_mobile/Pods-go2go_mobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-go2go_mobile/Pods-go2go_mobile-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D0B58DDEE933E64FE6D89AAA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-go2go_mobile/Pods-go2go_mobile-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-go2go_mobile/Pods-go2go_mobile-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-go2go_mobile/Pods-go2go_mobile-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FC97D03D2CEA961E83C39263 /* [CP] Check Pods Manifest.lock */ = {
+		7FF85B9524E5CCF943E7D1F5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -371,6 +318,48 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		EFE50FF3B08E8C0F8EC97119 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-go2go_mobile/Pods-go2go_mobile-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-go2go_mobile/Pods-go2go_mobile-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-go2go_mobile/Pods-go2go_mobile-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB856020BF112C87A096865E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-go2go_mobile/Pods-go2go_mobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-go2go_mobile/Pods-go2go_mobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-go2go_mobile/Pods-go2go_mobile-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -378,34 +367,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				403612782E39D77400B46E07 /* WidgetBridge.swift in Sources */,
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
-				4096FB5C2E007879008A8A68 /* LiveActivityModule.swift in Sources */,
-				4096FB612E007920008A8A68 /* LiveActivityModule.m in Sources */,
+				40D3D7572E39C2760061A9BA /* SharedDefaults.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4096FB392E007727008A8A68 /* Sources */ = {
+		40703AAF2E39B280005BF0EA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4096FB5B2E007878008A8A68 /* LiveActivityModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4096FB4F2E007728008A8A68 /* PBXTargetDependency */ = {
+		40703AC32E39B282005BF0EA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4096FB3C2E007727008A8A68 /* TimerLiveActivityExtension */;
-			targetProxy = 4096FB4E2E007728008A8A68 /* PBXContainerItemProxy */;
+			target = 40703AB22E39B280005BF0EA /* TodoWidgetExtension */;
+			targetProxy = 40703AC22E39B282005BF0EA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1DD24709B85A3B57790AD476 /* Pods-go2go_mobile.debug.xcconfig */;
+			baseConfigurationReference = FFD3C3B89988AE1966B5F717 /* Pods-go2go_mobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -491,7 +479,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -513,7 +501,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3BB0F3CA6D30149E5EC13EB /* Pods-go2go_mobile.release.xcconfig */;
+			baseConfigurationReference = CAEE8D8DD4DC50961DD645B6 /* Pods-go2go_mobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -598,7 +586,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -617,7 +605,7 @@
 			};
 			name = Release;
 		};
-		4096FB532E007728008A8A68 /* Debug */ = {
+		40703AC52E39B282005BF0EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -626,10 +614,10 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = TodoWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -637,10 +625,10 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TimerLiveActivity/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = TimerLiveActivity;
+				INFOPLIST_FILE = TodoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TodoWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -650,19 +638,18 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.go2go.munchi.TimerLiveActivity;
+				PRODUCT_BUNDLE_IDENTIFIER = com.go2go.munchi.TodoWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "TimerLiveActivityExtension-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		4096FB542E007728008A8A68 /* Release */ = {
+		40703AC62E39B282005BF0EA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -671,10 +658,10 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = TodoWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -683,10 +670,10 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TimerLiveActivity/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = TimerLiveActivity;
+				INFOPLIST_FILE = TodoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TodoWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -695,12 +682,11 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.go2go.munchi.TimerLiveActivity;
+				PRODUCT_BUNDLE_IDENTIFIER = com.go2go.munchi.TodoWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "TimerLiveActivityExtension-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -775,10 +761,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -847,10 +830,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -870,11 +850,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4096FB522E007728008A8A68 /* Build configuration list for PBXNativeTarget "TimerLiveActivityExtension" */ = {
+		40703AC72E39B282005BF0EA /* Build configuration list for PBXNativeTarget "TodoWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4096FB532E007728008A8A68 /* Debug */,
-				4096FB542E007728008A8A68 /* Release */,
+				40703AC52E39B282005BF0EA /* Debug */,
+				40703AC62E39B282005BF0EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

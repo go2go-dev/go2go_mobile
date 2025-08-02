@@ -1,18 +1,18 @@
 //
-//  TimerLiveActivityControl.swift
-//  TimerLiveActivity
+//  TodoWidgetControl.swift
+//  TodoWidget
 //
-//  Created by Leekayoung on 6/17/25.
+//  Created by Leekayoung on 7/30/25.
 //
 
 import AppIntents
 import SwiftUI
 import WidgetKit
 
-struct TimerLiveActivityControl: ControlWidget {
+struct TodoWidgetControl: ControlWidget {
     var body: some ControlWidgetConfiguration {
         StaticControlConfiguration(
-            kind: "com.go2go.munchi.TimerLiveActivity",
+            kind: "com.go2go.munchi.TodoWidget",
             provider: Provider()
         ) { value in
             ControlWidgetToggle(
@@ -28,7 +28,7 @@ struct TimerLiveActivityControl: ControlWidget {
     }
 }
 
-extension TimerLiveActivityControl {
+extension TodoWidgetControl {
     struct Provider: ControlValueProvider {
         var previewValue: Bool {
             false

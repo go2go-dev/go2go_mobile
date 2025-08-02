@@ -1,9 +1,9 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, View, Image} from 'react-native';
+import {SafeAreaView, StyleSheet, View, Image, Linking} from 'react-native'; // ✅ Linking 추가
 import WebView from 'react-native-webview';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import RNBootSplash from 'react-native-bootsplash'; // ✅ BootSplash import 추가
+import RNBootSplash from 'react-native-bootsplash';
 import AppleLoginButton from './components/AppleLoginButton';
 
 const queryClient = new QueryClient();
@@ -28,6 +28,110 @@ function App() {
   const [pendingTokens, setPendingTokens] = useState<Tokens | null>(null);
   const [isInitializing, setIsInitializing] = useState(true);
   const [tokensSent, setTokensSent] = useState(false);
+  const [pendingDeepLink, setPendingDeepLink] = useState<string | null>(null); // ✅ 딥링크 대기
+
+  // ✅ 딥링크 처리 함수
+  const handleDeepLink = (url: string) => {
+    console.log('🔗 딥링크 수신:', url);
+
+    try {
+      // yourapp://todo?autoAdd=true 파싱
+      const urlObj = new URL(url);
+      const path = urlObj.pathname || urlObj.host;
+      const params = new URLSearchParams(urlObj.search);
+
+      console.log('🔗 딥링크 파싱:', {
+        path,
+        params: Object.fromEntries(params),
+      });
+
+      if (path === 'todo') {
+        const autoAdd = params.get('autoAdd') === 'true';
+
+        if (webViewReady && isLoggedIn) {
+          // 웹뷰가 준비되고 로그인된 상태면 바로 전송
+          sendNavigationToWebView('/todo', autoAdd);
+        } else {
+          // 아직 준비 안됐으면 대기
+          console.log('⏳ 웹뷰 준비 대기, 딥링크 임시 저장');
+          setPendingDeepLink(url);
+        }
+      }
+    } catch (error) {
+      console.error('❌ 딥링크 파싱 실패:', error);
+    }
+  };
+
+  // ✅ 웹뷰로 네비게이션 메시지 전송
+  const sendNavigationToWebView = (path: string, autoAdd: boolean = false) => {
+    if (!webViewReady) {
+      console.log('❌ 웹뷰가 준비되지 않음');
+      return;
+    }
+
+    console.log('📤 웹뷰로 네비게이션 전송:', {path, autoAdd});
+
+    const message = {
+      type: 'NAVIGATE',
+      path: path,
+      autoAdd: autoAdd,
+    };
+
+    // postMessage 방식
+    webviewRef.current?.postMessage(JSON.stringify(message));
+
+    // JavaScript 주입 방식 (보조)
+    const jsCode = `
+      (function() {
+        try {
+          console.log('[RN→Web] 네비게이션 메시지:', ${JSON.stringify(
+            message,
+          )});
+          
+          // 커스텀 이벤트 발생
+          window.dispatchEvent(new CustomEvent('navigationFromRN', {
+            detail: ${JSON.stringify(message)}
+          }));
+          
+          return 'NAVIGATION_SENT';
+        } catch (error) {
+          console.error('[RN→Web] 네비게이션 전송 실패:', error);
+          return 'ERROR: ' + error.message;
+        }
+      })();
+    `;
+
+    webviewRef.current?.injectJavaScript(jsCode);
+  };
+
+  // ✅ 딥링크 리스너 추가
+  useEffect(() => {
+    // 앱이 꺼져있을 때 딥링크로 실행되는 경우
+    Linking.getInitialURL().then(url => {
+      if (url) {
+        console.log('🔗 초기 딥링크:', url);
+        handleDeepLink(url);
+      }
+    });
+
+    // 앱이 실행중일 때 딥링크 받는 경우
+    const subscription = Linking.addEventListener('url', event => {
+      handleDeepLink(event.url);
+    });
+
+    return () => {
+      subscription?.remove();
+    };
+  }, [webViewReady, isLoggedIn]); // 의존성 추가
+
+  // ✅ 대기중인 딥링크 처리
+  useEffect(() => {
+    if (pendingDeepLink && webViewReady && isLoggedIn) {
+      console.log('📤 대기중인 딥링크 처리');
+      handleDeepLink(pendingDeepLink);
+      setPendingDeepLink(null);
+    }
+  }, [pendingDeepLink, webViewReady, isLoggedIn]);
 
   // AsyncStorage에서 토큰 불러오기
   const loadStoredTokens = async (): Promise<Tokens | null> => {
@@ -95,7 +199,7 @@ function App() {
     }
   };
 
-  // ✅ 스플래쉬 화면 숨기기 함수
+  // 스플래쉬 화면 숨기기 함수
   const hideSplashScreen = () => {
     try {
       RNBootSplash.hide({fade: true}); // 부드러운 페이드 아웃
@@ -105,7 +209,7 @@ function App() {
     }
   };
 
-  // ✅ 앱 초기화 및 스플래쉬 제어
+  // 앱 초기화 및 스플래쉬 제어
   useEffect(() => {
     const initializeApp = async () => {
       try {
@@ -293,6 +397,7 @@ function App() {
     setWebViewReady(false);
     setPendingTokens(null);
     setTokensSent(false);
+    setPendingDeepLink(null); // ✅ 딥링크도 클리어
   };
 
   // 웹뷰 준비 완료 처리
@@ -307,7 +412,7 @@ function App() {
     }
   };
 
-  // ✅ 스플래쉬가 표시되는 동안은 빈 화면 반환 (네이티브 스플래쉬가 덮고 있음)
+  // 스플래쉬가 표시되는 동안은 빈 화면 반환 (네이티브 스플래쉬가 덮고 있음)
   if (isInitializing) {
     return null; // 네이티브 스플래쉬 화면이 표시되므로 빈 화면
   }
@@ -378,10 +483,13 @@ function App() {
                   console.log('🗑️ 웹에서 토큰 삭제됨');
                   setTokensSent(false);
                   break;
-                // ✅ 로그아웃 처리 추가
                 case 'LOGOUT_REQUEST':
                   console.log('👋 웹에서 로그아웃 요청 수신');
                   handleLogout();
+                  break;
+                // ✅ 네비게이션 완료 응답 추가
+                case 'NAVIGATION_COMPLETED':
+                  console.log('✅ 웹에서 네비게이션 완료');
                   break;
                 default:
                   try {

@@ -2,7 +2,7 @@ import UIKit
 import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
-import RNBootSplash  // ✅ bootsplash import 추가
+import RNBootSplash  
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
