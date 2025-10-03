@@ -62,7 +62,7 @@ struct TodoWidgetView: View {
       .containerBackground(Color(hex: "#FFF8A6"), for: .widget)
 
         // 딥링크
-        .widgetURL(URL(string: "monji_timer://todo?autoAdd=true"))
+        .widgetURL(URL(string: "monjitimer://todo?autoAdd=true"))
       
     }
 }
